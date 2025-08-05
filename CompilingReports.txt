@@ -1,0 +1,2 @@
+# This one works for me so far
+gcc -std=c2x -Wall -pedantic -Werror program.c -o program
