@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+#define limit 100
+
+void reverse(char *mess, int n) {
+	for (int i = n - 1; i >= n; i--)
+		 printf("%c", *mess[i]);
+}
+
+
+int main(void) {
+	char message[limit];
+	int cut = 0;
+	char *p = &message[0];
+
+	printf("Enter a message: ");
+	while ((getchar()) != '\n') {
+		message[cut] = getchar();
+		cut++;
+	}
+
+	reverse(p, limit - cut);
+	
+	return 0;
+}
