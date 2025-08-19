@@ -1,48 +1,40 @@
 #include <stdio.h>
 
-#define N 8
+#define N 2
 
-void sort(int a[], int lower[], int upper[], int middle) {
-	int i = 0; int j = 0;
+void sort(int a[], int low, int high) {
+	int i, j, temp;
 	
-	while (i < middle && j < middle) {
-		if (lower[i] < upper[j]) {
-			a[i + j] = lower[i];
-			i++;
-		}
-		else {
-			a[i + j] = upper[j];
-			j++;
+	for (i = low; i < high; i++) {
+		for (j = low + i; j < high; j++) {
+			if (a[i] > a[j]) {
+				temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+
+			}
 		}
 	}
 }
 
-void merge(int a[], int n) {
-	int middle = n / 2;
-	int lower[middle], upper[middle];
-	int i = 0;
+void merge(int a[], int low, int high) {
+	int middle = (low + high) / 2;
 	
-	if (n == 1) {
-		return;
-	}
+	if (middle <= 1) return;
 
-	for (i = 0; i < middle; i++) {
-		lower[i] = a[i];
-		upper[middle + i] = a[middle + i];
-	}
-	merge(lower, middle);
-	merge(upper, middle);
-	sort(a, lower, upper, middle);
+	merge(a, low, middle - 1);
+	merge(a, middle, high);
+	sort(a, low, high);
 }
 
 int main(void) {
 	int i = 0, a[N];
 
-	printf("Enter 10 numbers to be sorted: ");
+	printf("Enter %d numbers to be sorted: ", N);
 	while (i < N) 
 		scanf("%d", &a[i++]);
 
-	merge(a, N);
+	merge(a, 0, N);
 	
 	printf("In sorted order: ");
 	i = 0;
