@@ -2,30 +2,37 @@
 
 #define N 8
 
-int sort(int a[], int b[], int n) {
-	for (int i = 0; i < n; i++)
-		 
+void sort(int a[], int lower[], int upper[], int middle) {
+	int i = 0; int j = 0;
+	
+	while (i < middle && j < middle) {
+		if (lower[i] < upper[j]) {
+			a[i + j] = lower[i];
+			i++;
+		}
+		else {
+			a[i + j] = upper[j];
+			j++;
+		}
+	}
 }
 
-int merge(int a[], int n) {
+void merge(int a[], int n) {
 	int middle = n / 2;
-	int lower[middle], upper[middle], temp[n];
-	int i;
+	int lower[middle], upper[middle];
+	int i = 0;
 	
-	if (n == 1) 
+	if (n == 1) {
 		return;
+	}
 
 	for (i = 0; i < middle; i++) {
 		lower[i] = a[i];
 		upper[middle + i] = a[middle + i];
 	}
-
-	left = merge(lower, middle);
-	right = merge(upper, middle);
-
-	for (i = 0; i < n; i++)
-	       if (left[i] <= right[i])
-	           temp[
+	merge(lower, middle);
+	merge(upper, middle);
+	sort(a, lower, upper, middle);
 }
 
 int main(void) {
