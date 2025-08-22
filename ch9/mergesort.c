@@ -1,8 +1,10 @@
 #include <stdio.h>
 
-#define N 4
+#define N 10
 
-void sort(int a[], int low, int mid, int high) {
+/* prototypes */
+
+void merge(int a[], int low, int mid, int high) {
 	int n1 = mid - low + 1;
 	int n2 = high - mid;
 
@@ -41,32 +43,33 @@ void sort(int a[], int low, int mid, int high) {
 	}
 }
 
-void merge(int a[], int low, int high) {
+void sort(int a[], int low, int high) {
 	if (low < high) {
 	int mid = low + (high - low) / 2;
 
-	merge(a, low, mid);
-	merge(a, mid + 1, high);
-	sort(a, low, mid, high);
+	sort(a, low, mid);
+	sort(a, mid + 1, high);
+	merge(a, low, mid, high);
 	}
 }
 
+void printing(int *arr) {
+	for (int i = 0; i < N; i++)
+		 printf("%d ", arr[i]);
+	printf("\n");
+	return;
+}
+
 int main(void) {
-	int i = 0, a[N];
+	int arr[N] = {8, 4, 3, 2, 7, 6, 9, 0, 5, 1};
 
-	printf("Enter %d numbers to be sorted: ", N);
-	while (i < N) 
-		scanf("%d", &a[i++]);
+	printf("List to be sorted: ");
+	printing(arr);
 
-	merge(a, 0, N - 1);
+	sort(arr, 0, N - 1);
 	
 	printf("In sorted order: ");
-	i = 0;
-	while (i < N) {
-		printf("%d ", a[i]);
-		i++;
-	}
-	printf("\n");
+	printing(arr);
 
 	return 0;
 
